@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('repos', 'RepoController@index');
+Route::get('repos/{repo}', 'RepoController@show');
+Route::post('repos', 'RepoController@store');
+Route::put('repos/{repo}', 'RepoController@update');
+Route::delete('repos/{repo}', 'RepoController@delete');
