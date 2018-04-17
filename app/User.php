@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property string $api_token
  * @property string|null $remember_token
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
@@ -35,7 +36,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token',
     ];
 
     /**
@@ -44,6 +45,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token'
     ];
+
+    public function generateToken()
+    {
+        $this->api_token = str_random(60);
+        $this->save();
+
+        return $this->api_token;
+    }
 }
